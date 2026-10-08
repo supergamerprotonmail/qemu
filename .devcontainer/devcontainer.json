@@ -1,19 +1,12 @@
 {
-  "name": "Linux Mint",
+  "name": "Arch Linux QEMU",
   "service": "qemu",
-  "containerEnv": {
-    "BOOT": "mint"
-  },
+  "dockerComposeFile": "codespaces.yml",
   "forwardPorts": [8006],
   "portsAttributes": {
     "8006": {
-      "label": "Web",
-      "onAutoForward": "notify"
+      "label": "Arch Linux noVNC",
+      "onAutoForward": "openBrowser"
     }
-  },
-  "otherPortsAttributes": {
-    "onAutoForward": "ignore"
-  }, 
-  "dockerComposeFile": "codespaces.yml",
-  "initializeCommand": "docker system prune --all --force"
+  }
 }
