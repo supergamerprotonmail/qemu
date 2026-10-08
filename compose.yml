@@ -1,17 +1,26 @@
 services:
   qemu:
-    image: qemux/qemu
     container_name: qemu
+    image: ghcr.io/qemus/qemu:latest
+
     environment:
-      BOOT: "mint"
+      BOOT: "https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso"
+      RAM_SIZE: "half"
+      CPU_CORES: "max"
+      DISK_SIZE: "max"
+
     devices:
       - /dev/kvm
       - /dev/net/tun
+
     cap_add:
       - NET_ADMIN
+
     ports:
-      - 8006:8006
+      - "8006:8006"
+
     volumes:
-      - ./qemu:/storage
-    restart: always
+      - ../qemu:/storage
+
+    restart: unless-stopped
     stop_grace_period: 2m
