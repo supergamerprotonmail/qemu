@@ -1,19 +1,26 @@
 services:
   qemu:
     container_name: qemu
-    image: ghcr.io/qemus/qemu
+    image: ghcr.io/qemus/qemu:latest
+
     environment:
+      BOOT: "https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso"
       RAM_SIZE: "half"
-      DISK_SIZE: "max"
       CPU_CORES: "max"
+      DISK_SIZE: "max"
+
     devices:
       - /dev/kvm
       - /dev/net/tun
+
     cap_add:
       - NET_ADMIN
+
     ports:
-      - 8006:8006
+      - "8006:8006"
+
     volumes:
-      - ./qemu:/storage
-    restart: on-failure
+      - ../qemu:/storage
+
+    restart: unless-stopped
     stop_grace_period: 2m
